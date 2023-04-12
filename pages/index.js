@@ -18,6 +18,10 @@ export default function Home() {
       });
 
       const data = await response.json();
+
+      console.log("data", data)
+
+
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
@@ -40,16 +44,16 @@ export default function Home() {
 
       <main className={styles.main}>
         {/* <img src="/dog.png" className={styles.icon} /> */}
-        <h3>Find a Zipcode</h3>
+        <h3>Adoption questions</h3>
         <form onSubmit={onSubmit}>
           <input
             type="text"
             name="zipcode"
-            placeholder="Find a Zipcode"
+            placeholder="Ask a question"
             value={animalInput}
             onChange={(e) => setAnimalInput(e.target.value)}
           />
-          <input type="submit" value="Generate Zipcodes" />
+          <input type="submit" value="submit" />
         </form>
         <div className={styles.result}>{result}</div>
       </main>
