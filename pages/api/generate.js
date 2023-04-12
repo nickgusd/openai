@@ -30,8 +30,10 @@ export default async function (req, res) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generatePrompt(animal),
+      max_tokens: 500,
       temperature: 0.6,
     });
+    console.log("completion", completion)
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch(error) {
     // Consider adjusting the error handling logic for your use case
@@ -53,12 +55,12 @@ function generatePrompt(animal) {
   const capitalizedAnimal =
     animal[0].toUpperCase() + animal.slice(1).toLowerCase();
     console.log("capitalizedAnimal", capitalizedAnimal)
-  return `Provide 3 zipcodes for the selected City.
+  return `Provide a response to the question?.
 
-City: Los Angeles
-Zipcodes: 90001, 90002, 90003
-City: San Diego
-Zipcodes: 92101, 92103, 92014
-City: ${capitalizedAnimal}
-Zipcodes:`;
+Question: How do I adopt a pet? 
+Answer: Adopting a pet can be a rewarding and fulfilling experience, but it's important to approach it with thought and care. Here are some general steps you can take to adopt a pet. Determine the type of pet that best fits your lifestyle and living situation. Consider factors such as the size of your home, the amount of time you have to spend with the pet, and your budget for pet care. Research local animal shelters, rescues, and adoption agencies in your area. Look for organizations that have a good reputation and a track record of caring for animals.
+Visit the shelter or rescue to meet the pets available for adoption. Spend time with the animals to get a sense of their personality and energy level. Ask questions about the pet's history, health, and behavior.
+
+Question: ${capitalizedAnimal}
+Answer:`;
 }
